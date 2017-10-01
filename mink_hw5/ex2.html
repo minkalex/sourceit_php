@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise 2</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<form method="post" action="writeCsv.php">
+    <div class='container'>
+        <h1 align="center">Задача 2</h1>
+        <div class="form-row">
+        <div class="col">
+            <h3>Введите имя</h3>
+            <input type='text' class='form-control' placeholder='Имя' name='firstName'><br>
+            <?php if (isset($errors['firstName'])): ?>
+            <?= $errors['firstName'] ?>
+            <?php endif; ?>
+            <h3>Введите фамилию</h3>
+            <input type="text" class="form-control" placeholder="Фамилия" name="lastName"><br>
+            <?php if (isset($errors['lastName'])): ?>
+            <?= $errors['lastName'] ?>
+            <?php endif; ?>
+            <h3>Введите должность</h3>
+            <input type="text" class="form-control" placeholder="Должность" name="position"><br>
+            <?php if (isset($errors['position'])): ?>
+            <?= $errors['position'] ?>
+            <?php endif; ?>
+            <button type="submit" class="btn btn-dark" name="writeCsv">Записать</button>
+            <button type="submit" class="btn btn-dark" name="readCsv">Прочитать</button>
+            <br>
+            <br>
+        </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>
