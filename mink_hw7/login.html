@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link href="./style.css" rel="stylesheet">
+    <link href="./bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="login-form">
+        <h1>АВТОРИЗАЦИЯ</h1>
+        <fieldset>
+            <form action="./index.php" method="post">
+            <input type="text" name="login" placeholder="Логин">
+            <input type="password" name="password" placeholder="Пароль">
+                <input type="submit" name="submitLogin" value="Войти">
+                <input type="submit" name="goToRegistration" value="Зарегистрироваться">
+            </form>
+        </fieldset>
+        <?php if (isset($errors['login'])): ?>
+        <?= $errors['login'] ?>
+        <?php endif; ?>
+        <?php if (isset($errors['password'])): ?>
+        <?= $errors['password'] ?>
+        <?php endif; ?>
+        <?php if (isset($message) & empty($errors)): ?>
+        <?= $message ?>
+        <?php endif; ?>
+    </div>
+</body>
+</html>

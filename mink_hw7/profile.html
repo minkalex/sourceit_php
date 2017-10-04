@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="./bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div class="jumbotron">
+        <h1 class="display-3">Здравствуйте, <?=$_SESSION['login'] ?>!</h1>
+        <hr class="my-4">
+        <form action="index.php" method="post">
+        <p class="lead">
+            <button name="logOut" class="btn btn-dark">Выйти</button>
+        </p>
+    </form>
+    </div>
+
+
+    <!--<h1>Здравствуйте, <span class="badge badge-secondary"><?=$_SESSION['login'] ?></span></h1>
+    <form action="index.php" method="post">
+        <button name="logOut" class="btn btn-dark">Выйти</button>
+    </form>-->
+</div>
+</body>
+</html>
