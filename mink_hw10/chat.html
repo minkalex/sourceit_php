@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Chat</title>
+    <link href="./bootstrap.min.css" rel="stylesheet">
+    <link href="./chat.css" rel="stylesheet">
+    <script src="./jquery-3.2.1.js"></script>
+</head>
+<body>
+<div class="container">
+    <form class="form-chat" method="post" action="./chat.php" id="messageForm">
+        <h2 class="form-chat-heading">Ваше сообщение</h2>
+        <label for="inputNick" class="sr-only">Ник</label>
+        <input type="text" id="inputNick" class="form-control" placeholder="Ник" required autofocus name="inputNick">
+        <label for="inputMessage" class="sr-only">Сообщение</label>
+        <textarea id="inputMessage" rows="10" class="form-control" placeholder="Сообщение" required name="inputMessage"></textarea>
+        <br>
+        <button class="btn btn-lg btn-dark btn-block" type="submit" id="submit">Отправить</button>
+        <br>
+    </form>
+    <h2 class="form-chat-heading" id="chat">Чат</h2>
+<script>
+    $(function () {
+        var btn = $('#submit');
+        btn.click(function (e) {
+            e.preventDefault();
+            var form_data = $('#messageForm').serialize();
+            $('#messageForm .is-invalid').removeClass('is-invalid');
+            $.ajax({
+                url: "chat.php",
+                type: 'post',
+                data: form_data,
+                success: function (response) {
+                    if (response.success) {
+                        for (var i = 0; i < response.messages.length; i++) {
+                            var messageBlock = document.createElement('div');
+                            messageBlock.className = "alert alert-secondary";
+                            var nick = document.createElement('h4');
+                            nick.className = "alert-heading";
+                            nick.innerHTML = response.messages[i]['login'];
+                            var message = document.createElement('p');
+                            message.innerHTML = response.messages[i]['message'];
+                            var hr = document.createElement('hr');
+                            var time = document.createElement('p');
+                            time.className = "mb-0";
+                            time.innerHTML = response.messages[i]['datetime'];
+                            $(messageBlock).insertAfter("#chat");
+                            $(messageBlock).append(nick);
+                            $(messageBlock).append(message);
+                            $(messageBlock).append(hr);
+                            $(messageBlock).append(time);
+                        }
+                    } else {
+                        var element;
+                        if (response.errors['inputNick'] != null) {
+                            $('#messageForm input').addClass('is-invalid');
+                            document.getElementById("inputNick").placeholder = 'ВВЕДИТЕ НИК!!!';
+                        }
+                        if (response.errors['inputMessage'] != null) {
+                            $('#messageForm textarea').addClass('is-invalid');
+                            document.getElementById("inputMessage").placeholder = 'ВВЕДИТЕ СООБЩЕНИЕ!!!';
+                        }
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                },
+                complete: function () {
+                    document.getElementById("inputMessage").value = '';
+                }
+            });
+        });
+    });
+    $(function updateChat() {
+
+    })
+</script>
+</div>
+</body>
+</html>
