@@ -1,6 +1,6 @@
 <?php
 
-if ($_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+if ($_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest' && isset($_POST['submit'])) {
     $nick = $_POST['inputNick'] ?? '';
     $message = $_POST['inputMessage'] ?? '';
     $response = [
@@ -46,4 +46,6 @@ if ($_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
     }
     header('Content-Type: application/json');
     echo json_encode($response);
+} else {
+
 }
